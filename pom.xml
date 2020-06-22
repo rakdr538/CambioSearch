@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>se.rakesh.cambio</groupId>
-	<artifactId>CambioSearch</artifactId>
+	<artifactId>cambiosearch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CambioSearch</name>
+	<name>cambiosearch</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;
 import se.rakesh.cambio.CambioSearch.model.SearchModel;
 import se.rakesh.cambio.CambioSearch.repository.SearchModelRepository;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /* Component to load initial data */
 @Slf4j
@@ -28,29 +31,28 @@ public class DataLoader implements ApplicationRunner {
 
   @Autowired private ApplicationContext applicationContext;
 
-  private static File[] getResourceFolderFiles (String folder) {
-    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    URL url = loader.getResource(folder);
-    String path = url.getPath();
-    return new File(path).listFiles();
-  }
-
   @Autowired
   public DataLoader(SearchModelRepository repository) {
     this.repository = repository;
   }
 
   public void run(ApplicationArguments args) throws IOException {
-    for (File file : getResourceFolderFiles("searchModels")) {
-      log.info("Parsing file {}",file.getName());
-      parseAndLoadJsonData(file);
-    }
+    ClassLoader cl = this.getClass().getClassLoader();
+    PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
+    Stream<InputStream> stream = getInputStreamsFromClasspath("searchModels", resolver);
+    stream.forEach(inputStream -> {
+      try {
+        parseAndLoadJsonData(inputStream.readAllBytes());
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
   }
 
-  private void parseAndLoadJsonData(File f) {
+  private void parseAndLoadJsonData(byte[] f) {
     ObjectMapper mapper = new ObjectMapper();
     try {
-      String content = new String(Files.readAllBytes(f.toPath()));
+      String content = new String(f);
       JsonNode actualObj = mapper.readTree(content);
       JsonNode id = actualObj.get("id");
       JsonNode details = actualObj.get("description").get("details");
@@ -68,6 +70,26 @@ public class DataLoader implements ApplicationRunner {
               .build());
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  private static Stream<InputStream> getInputStreamsFromClasspath(
+          String path,
+          PathMatchingResourcePatternResolver resolver) {
+    try {
+      return Arrays.stream(resolver.getResources("/" + path + "/*.json"))
+              .filter(Resource::exists)
+              .map(resource -> {
+                try {
+                  return resource.getInputStream();
+                } catch (IOException e) {
+                  return null;
+                }
+              })
+              .filter(Objects::nonNull);
+    } catch (IOException e) {
+      log.error("Failed to get definitions from directory {}", path, e);
+      return Stream.of();
     }
   }
 }
