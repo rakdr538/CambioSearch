@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import se.rakesh.cambio.CambioSearch.model.SearchModel;
 import se.rakesh.cambio.CambioSearch.repository.SearchModelRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
@@ -28,13 +28,11 @@ public class DataLoader implements ApplicationRunner {
 
   @Autowired private ApplicationContext applicationContext;
 
-  private Resource[] loadResources() {
-    try {
-      return applicationContext.getResources("classpath*:/searchModels/*.json");
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-    return new Resource[0];
+  private static File[] getResourceFolderFiles (String folder) {
+    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    URL url = loader.getResource(folder);
+    String path = url.getPath();
+    return new File(path).listFiles();
   }
 
   @Autowired
@@ -43,9 +41,9 @@ public class DataLoader implements ApplicationRunner {
   }
 
   public void run(ApplicationArguments args) throws IOException {
-    for (Resource resource : loadResources()) {
-      log.info("Parsing file {}",resource.getFilename());
-      parseAndLoadJsonData(resource.getFile());
+    for (File file : getResourceFolderFiles("searchModels")) {
+      log.info("Parsing file {}",file.getName());
+      parseAndLoadJsonData(file);
     }
   }
 
