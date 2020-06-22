@@ -1,0 +1,815 @@
+{
+  "id": "Chronic_pain_pregabalin.v1",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2018-06-19",
+      "name": "Cambio"
+    },
+    "lifecycle_state": "Initial",
+    "details": {
+      "en": {
+        "id": "en",
+        "keywords": [
+          "Chronic pain",
+          "Pregabalin"
+        ]
+      },
+      "sv": {
+        "id": "sv",
+        "keywords": [
+          "Kronisk smärta",
+          "Pregabalin"
+        ]
+      }
+    },
+    "other_details": {
+      "references": "1. Scottish Intercollegiate Guidelines Network (SIGN). Management of chronic pain. Edinburgh: SIGN; 2013."
+    }
+  },
+  "definition": {
+    "default_actions": [
+      "$gt999001|active.warning|=false"
+    ],
+    "data_bindings": {
+      "gt1008": {
+        "id": "gt1008",
+        "model_id": "org.hl7.fhir.dstu3.model.Patient",
+        "template_id": "FHIR-STU3-Patient.basic_demographic.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1009": {
+            "id": "gt1009",
+            "path": "/birthDate"
+          }
+        }
+      },
+      "gt0002": {
+        "id": "gt0002",
+        "model_id": "org.hl7.fhir.dstu3.model.MedicationRequest",
+        "type": "INPUT",
+        "elements": {
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/medicationCodeableConcept/coding[0]"
+          }
+        },
+        "predicates": [
+          "/medicationCodeableConcept/coding[0] is_a local::gt0008|Pregabalin|"
+        ]
+      },
+      "gt1016": {
+        "id": "gt1016",
+        "model_id": "org.hl7.fhir.dstu3.model.MedicationStatement",
+        "type": "INPUT",
+        "elements": {
+          "gt1017": {
+            "id": "gt1017",
+            "path": "/medicationCodeableConcept/coding[0]"
+          }
+        },
+        "predicates": [
+          "/medicationCodeableConcept/coding[0] is_a local::gt2008|Gabapentin|",
+          "/effectiveDateTime>=($currentDateTime-12,mo)"
+        ]
+      },
+      "gt0004": {
+        "id": "gt0004",
+        "model_id": "org.hl7.fhir.dstu3.model.QuestionnaireResponse",
+        "type": "INPUT",
+        "elements": {
+          "gt0005": {
+            "id": "gt0005",
+            "path": "/item[0]/answer[0]/valueBoolean"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "path": "/item[1]/answer[0]/valueBoolean"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "path": "/item[2]/answer[0]/valueBoolean"
+          },
+          "gt0017": {
+            "id": "gt0017",
+            "path": "/item[3]/answer[0]/valueBoolean"
+          }
+        },
+        "predicates": [
+          "/id=='pregabalin-indication'"
+        ]
+      },
+      "gt011": {
+        "id": "gt0011",
+        "model_id": "org.hl7.fhir.dstu3.model.QuestionnaireResponse",
+        "type": "INPUT",
+        "elements": {
+          "gt0012": {
+            "id": "gt0012",
+            "path": "/item[0]/answer[0]/valueString"
+          }
+        },
+        "predicates": [
+          "/id=='suggest-gabapentin'"
+        ]
+      },
+      "gt0027": {
+        "id": "gt0027",
+        "model_id": "org.hl7.fhir.dstu3.model.Parameters",
+        "type": "INPUT",
+        "elements": {
+          "gt0028": {
+            "id": "gt0028",
+            "path": "/parameter[0]/valueString"
+          }
+        },
+        "predicates": [
+          "/id=='current-view'"
+        ]
+      },
+      "gt0006": {
+        "id": "gt0006",
+        "model_id": "org.hl7.fhir.dstu3.model.Observation",
+        "type": "INPUT",
+        "elements": {
+          "gt0007": {
+            "id": "gt0007",
+            "path": "/valueQuantity"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0010|eGFR|",
+          "/effectiveDateTime>=($currentDateTime-12,mo)"
+        ]
+      },
+      "gt1006": {
+        "id": "gt1006",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "template_id": "FHIR-STU3-Condition.problem_diagnosis.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1007": {
+            "id": "gt1007",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt2004|Neuropathic pain|"
+        ]
+      },
+      "gt1010": {
+        "id": "gt1010",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "template_id": "FHIR-STU3-Condition.problem_diagnosis.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1011": {
+            "id": "gt1011",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt2005|Chronic pain|"
+        ]
+      },
+      "gt1012": {
+        "id": "gt1012",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "template_id": "FHIR-STU3-Condition.problem_diagnosis.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1013": {
+            "id": "gt1013",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt2006|Epilepsy|"
+        ]
+      },
+      "gt1014": {
+        "id": "gt1014",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "template_id": "FHIR-STU3-Condition.problem_diagnosis.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1015": {
+            "id": "gt1015",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt2007|Generalised anxiety disorder|"
+        ]
+      }
+    },
+    "templates": {
+      "gt2022": {
+        "id": "gt2022",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "QuestionnaireResponse",
+          "id": "pregabalin-indication",
+          "status": "in-progress",
+          "item": [
+            {
+              "linkId": "1.1",
+              "text": "Neuropathic pain",
+              "type": "boolean"
+            },
+            {
+              "linkId": "1.2",
+              "text": "Chronic pain",
+              "type": "boolean"
+            },
+            {
+              "linkId": "1.3",
+              "text": "Epilepsy",
+              "type": "boolean"
+            },
+            {
+              "linkId": "1.4",
+              "text": "Generalised anxiety disorder",
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "gt2026": {
+        "id": "gt2026",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "QuestionnaireResponse",
+          "id": "pregabalin-indication",
+          "status": "in-progress",
+          "item": [
+            {
+              "linkId": "1.1",
+              "text": "Neuropathic pain",
+              "type": "boolean"
+            },
+            {
+              "linkId": "1.2",
+              "text": "Chronic pain",
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "gt2023": {
+        "id": "gt2023",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "QuestionnaireResponse",
+          "id": "suggest-gabapentin",
+          "status": "in-progress",
+          "item": [
+            {
+              "linkId": "1.1",
+              "text": "Consider one of the following drug options",
+              "type": "choice",
+              "option": [
+                {
+                  "valueString": "Switch to Gabapentin"
+                },
+                {
+                  "valueString": "Continue with Pregabalin"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "gt2027": {
+        "id": "gt2027",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "DetectedIssue",
+          "id": "warning",
+          "status": "final",
+          "detail": "{$gt2028}"
+        }
+      },
+      "gt2029": {
+        "id": "gt2029",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "value": "{$gt2030}",
+          "id": "next-view"
+        }
+      },
+      "gt2031": {
+        "id": "gt2031",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "value": "{$gt2032}",
+          "id": "start-view"
+        }
+      },
+      "gt2037": {
+        "id": "gt2037",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "value": "{$gt2038}",
+          "id": "readyToSave"
+        }
+      },
+      "gt2039": {
+        "id": "gt2039",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "value": "{$gt2040}",
+          "id": "hideBackToStartLink"
+        }
+      },
+      "gt2033": {
+        "id": "gt2033",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "Condition",
+          "code": {
+            "coding": [
+              {
+                "system": "READ",
+                "code": "{$gt2034}",
+                "display": "{$gt2035}"
+              }
+            ]
+          },
+          "onsetDateTime": "{$gt2036}",
+          "subject": {
+            "reference": "Patient/12345678"
+          }
+        }
+      },
+      "gt2024": {
+        "id": "gt2024",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "ClinicalImpression",
+          "id": "no-change-to-medication",
+          "status": "completed",
+          "effectiveDateTime": "{$gt2025}",
+          "code": {
+            "coding": [
+              {
+                "system": "READ",
+                "code": "ZZZZZ",
+                "display": "No change to medication"
+              }
+            ]
+          },
+          "subject": {
+            "reference": "Patient/12345678"
+          },
+          "summary": "Documented as part of Pain pathway"
+        }
+      },
+      "gt2050": {
+        "id": "gt2050",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "MedicationStatement",
+          "status": "active",
+          "effectiveDateTime": "{$gt2051}",
+          "taken": "unk",
+          "subject": {
+            "reference": "Patient"
+          },
+          "medicationCodeableConcept": {
+            "coding": [
+              {
+                "system": "READ",
+                "code": "dnpy",
+                "display": "Pregabalin"
+              }
+            ]
+          },
+          "dosage": [
+            {
+              "text": "50 mg 3 times a day",
+              "doseQuantity": {
+                "value": 50,
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org/",
+                "code": "mg"
+              },
+              "timing": {
+                "repeat": {
+                  "frequency": 3,
+                  "period": 1,
+                  "periodUnit": "d"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "gt2052": {
+        "id": "gt2052",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "resourceType": "MedicationStatement",
+          "status": "active",
+          "effectiveDateTime": "{$gt2053}",
+          "taken": "unk",
+          "subject": {
+            "reference": "Patient"
+          },
+          "medicationCodeableConcept": {
+            "coding": [
+              {
+                "system": "READ",
+                "code": "dnj1",
+                "display": "Gabapentin"
+              }
+            ]
+          },
+          "dosage": [
+            {
+              "text": "600 mg 3 times a day",
+              "doseQuantity": {
+                "value": 600,
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org/",
+                "code": "mg"
+              },
+              "timing": {
+                "repeat": {
+                  "frequency": 3,
+                  "period": 1,
+                  "periodUnit": "d"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "rules": {
+      "gt5030": {
+        "id": "gt5030",
+        "priority": 10011,
+        "when": [
+          "$gt1007|neuropathic pain|==null",
+          "$gt1011|chronic pain|==null"
+        ],
+        "then": [
+          "use_template($gt2031|start-view|($gt2032='pregabalin-indication'))",
+          "$gt999002|start-view|='pregabalin-indication'"
+        ]
+      },
+      "gt5031": {
+        "id": "gt5031",
+        "priority": 10010,
+        "when": [
+          "($gt1007|neuropathic pain|!=null)||($gt1011|chronic pain|!=null)",
+          "$gt1017|Gabapentin < 12 month|!=null"
+        ],
+        "then": [
+          "use_template($gt2031|start-view|($gt2032='consider-non-drug-option'))",
+          "$gt999002|start-view|='consider-non-drug-option'"
+        ]
+      },
+      "gt5032": {
+        "id": "gt5032",
+        "priority": 10013,
+        "when": [
+          "($gt1007|neuropathic pain|!=null)||($gt1011|chronic pain|!=null)",
+          "$gt1017|Gabapentin < 12 month|==null"
+        ],
+        "then": [
+          "use_template($gt2031|start-view|($gt2032='suggest-gabapentin'))",
+          "$gt999002|start-view|='suggest-gabapentin'"
+        ]
+      },
+      "gt5000": {
+        "id": "gt5000",
+        "priority": 9000,
+        "when": [],
+        "then": [
+          "$gt6000|calculated age|=(($currentDateTime-$gt1009|birthDate|)/1,a)"
+        ]
+      },
+      "gt5009": {
+        "id": "gt5009",
+        "priority": 8200,
+        "when": [
+          "$gt0028|current view|=='pregabalin-indication'",
+          "$gt1013|epilepsy|==null",
+          "$gt1015|GAD|==null"
+        ],
+        "then": [
+          "use_template($gt2022|pregabalin-indication-full|)"
+        ]
+      },
+      "gt5010": {
+        "id": "gt5010",
+        "priority": 8180,
+        "when": [
+          "$gt0028|current view|=='suggest-gabapentin'"
+        ],
+        "then": [
+          "use_template($gt2023|suggest-gabapentin|)"
+        ]
+      },
+      "gt5003": {
+        "id": "gt5003",
+        "priority": 8100,
+        "when": [
+          "$gt0028|current view|=='pregabalin-indication'",
+          "($gt1013|epilepsy|!=null)||($gt1015|GAD|!=null)"
+        ],
+        "then": [
+          "use_template($gt2026|pregabalin-indication-half|)"
+        ]
+      },
+      "gt0024": {
+        "id": "gt0024",
+        "priority": 5145,
+        "when": [
+          "$gt0007|eGFR within 12 month|==null"
+        ],
+        "then": [
+          "use_template($gt2027|detected issue|($gt2028='No eGFR value in the last 12 months; consider checking renal function.'))",
+          "$gt999001|active.warning|=true"
+        ]
+      },
+      "gt0025": {
+        "id": "gt0025",
+        "priority": 5140,
+        "when": [
+          "$gt0007|eGFR within 12 month|<60,mL/min/{1.73_m2}"
+        ],
+        "then": [
+          "use_template($gt2027|detected issue|($gt2028='Patient has abnormally low eGFR; amend dose accordingly.'))",
+          "$gt999001|active.warning|=true"
+        ]
+      },
+      "gt0026": {
+        "id": "gt0026",
+        "priority": 5135,
+        "when": [
+          "$gt6000|calculated age|>=75"
+        ],
+        "then": [
+          "use_template($gt2027|detected issue|($gt2028='Patient over 75 years of age; consider lowering starting dose if note done already.'))",
+          "$gt999001|active.warning|=true"
+        ]
+      },
+      "gt5040": {
+        "id": "gt5040",
+        "priority": 876,
+        "when": [
+          "$gt1007|neuropathic pain|==null",
+          "$gt1011|chronic pain|==null",
+          "$gt0005|neuropathic pain choice|!=true",
+          "$gt0015|chronic pain choice|!=true",
+          "($gt1013|epilepsy|!=null)||($gt1015|GAD|!=null)"
+        ],
+        "then": [
+          "use_template($gt2037|readyToSave|($gt2038=true))"
+        ]
+      },
+      "gt5027": {
+        "id": "gt5027",
+        "priority": 875,
+        "when": [
+          "$gt1007|neuropathic pain|==null",
+          "$gt1011|chronic pain|==null",
+          "$gt0005|neuropathic pain choice|!=true",
+          "$gt0015|chronic pain choice|!=true",
+          "($gt0016|epilepsy choice|==true)||($gt0017|GAD choice|==true)"
+        ],
+        "then": [
+          "use_template($gt2037|readyToSave|($gt2038=true))"
+        ]
+      },
+      "gt5028": {
+        "id": "gt5028",
+        "priority": 874,
+        "when": [
+          "$gt0028|current view|=='pregabalin-indication'",
+          "($gt0005|neuropathic pain|==true)||($gt0015|chronic pain|==true)",
+          "$gt1017|Gabapentin < 12 month|!=null"
+        ],
+        "then": [
+          "use_template($gt2029|next-view|($gt2030='consider-non-drug-option'))"
+        ]
+      },
+      "gt5029": {
+        "id": "gt5029",
+        "priority": 873,
+        "when": [
+          "$gt0028|current view|=='pregabalin-indication'",
+          "($gt0005|neuropathic pain|==true)||($gt0015|chronic pain|==true)",
+          "$gt1017|Gabapentin < 12 month|==null"
+        ],
+        "then": [
+          "use_template($gt2029|next-view|($gt2030='suggest-gabapentin'))"
+        ]
+      },
+      "gt5004": {
+        "id": "gt5004",
+        "priority": 870,
+        "when": [
+          "$gt0005|neuropathic pain|==true"
+        ],
+        "then": [
+          "use_template($gt2033|indication|($gt2034='N2423';$gt2035='Neuropathic pain';$gt2036=$currentDateTime.string))"
+        ]
+      },
+      "gt5005": {
+        "id": "gt5005",
+        "priority": 868,
+        "when": [
+          "$gt0015|chronic pain|==true"
+        ],
+        "then": [
+          "use_template($gt2033|indication|($gt2034='1M52';$gt2035='Chronic pain';$gt2036=$currentDateTime.string))"
+        ]
+      },
+      "gt5006": {
+        "id": "gt5006",
+        "priority": 866,
+        "when": [
+          "$gt0016|epilepsy|==true"
+        ],
+        "then": [
+          "use_template($gt2033|indication|($gt2034='F25';$gt2035='Epilepsy';$gt2036=$currentDateTime.string))"
+        ]
+      },
+      "gt5007": {
+        "id": "gt5007",
+        "priority": 864,
+        "when": [
+          "$gt0017|GAD|==true"
+        ],
+        "then": [
+          "use_template($gt2033|indication|($gt2034='E2002';$gt2035='Generalised anxiety disorder';$gt2036=$currentDateTime.string))"
+        ]
+      },
+      "gt0052": {
+        "id": "gt0052",
+        "priority": 42,
+        "when": [
+          "$gt0028|current view|=='suggest-gabapentin'",
+          "$gt0012|suggest gabapentin choice|!=null",
+          "$gt999001|active.warning|==true"
+        ],
+        "then": [
+          "use_template($gt2029|next-view|($gt2030='warning'))",
+          "use_template($gt2037|readyToSave|($gt2038=false))"
+        ]
+      },
+      "gt0053": {
+        "id": "gt0053",
+        "priority": 41,
+        "when": [
+          "$gt0028|current view|=='suggest-gabapentin'",
+          "$gt999001|active.warning|==false"
+        ],
+        "then": [
+          "use_template($gt2037|readyToSave|($gt2038=true))"
+        ]
+      },
+      "gt0057": {
+        "id": "gt0057",
+        "priority": 40,
+        "when": [
+          "$gt0028|current view|=='consider-non-drug-option'",
+          "$gt999001|active.warning|==false"
+        ],
+        "then": [
+          "use_template($gt2037|readyToSave|($gt2038=true))"
+        ]
+      },
+      "gt0058": {
+        "id": "gt0058",
+        "priority": 39,
+        "when": [
+          "$gt0028|current view|=='consider-non-drug-option'",
+          "$gt999001|active.warning|==true"
+        ],
+        "then": [
+          "use_template($gt2029|next-view|($gt2030='warning'))",
+          "use_template($gt2037|readyToSave|($gt2038=false))"
+        ]
+      },
+      "gt0059": {
+        "id": "gt0059",
+        "priority": 38,
+        "when": [
+          "$gt0028|current view|=='warning'"
+        ],
+        "then": [
+          "use_template($gt2037|readyToSave|($gt2038=true))"
+        ]
+      },
+      "gt0054": {
+        "id": "gt0054",
+        "priority": 28,
+        "when": [
+          "($gt0012|suggest gabapentin choice|=='Continue with Pregabalin')||($gt999002|start-view|=='consider-non-drug-option')"
+        ],
+        "then": [
+          "use_template($gt2024|clinical impression: no change to medication|($gt2025=$currentDateTime.string))",
+          "use_template($gt2050|medication statement: Pregabalin|($gt2051=$currentDateTime.string))"
+        ]
+      },
+      "gt0055": {
+        "id": "gt0055",
+        "priority": 27,
+        "when": [
+          "$gt0012|suggest gabapentin choice|=='Switch to Gabapentin'"
+        ],
+        "then": [
+          "use_template($gt2052|medication statement: Gabapentin|($gt2053=$currentDateTime.string))"
+        ]
+      },
+      "gt0056": {
+        "id": "gt0056",
+        "priority": 10,
+        "when": [
+          "$gt0028|current view|==$gt999002|start-view|"
+        ],
+        "then": [
+          "use_template($gt2039|hideBackToStartLink|($gt2040=true))"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "Match medicines",
+            "description": "FR10, perform matching of patient medications\nThe CDS Application shall compare any medications retrieved from the patient’s medical record against the list of medications available in the Drug Efficacy Table of the Polypharmacy Guide. The comparison shall detect any matching combination of medication name, dosage, ideal body weight, fasting blood glucose, diagnosis and age, between the patient’s medical record and the data from the Drug Efficacy Table."
+          }
+        }
+      }
+    },
+    "term_bindings": {
+      "READ": {
+        "id": "READ",
+        "bindings": {
+          "gt0008": {
+            "codes": [
+              "READ::dnpr",
+              "READ::dnps",
+              "READ::dnpt",
+              "READ::dnpu",
+              "READ::dnpv",
+              "READ::dnpw",
+              "READ::dnpx",
+              "READ::dnpy",
+              "READ::dnpz"
+            ]
+          },
+          "gt0010": {
+            "codes": [
+              "READ::451K"
+            ]
+          },
+          "gt2004": {
+            "codes": [
+              "READ::IM8",
+              "READ::N2423"
+            ]
+          },
+          "gt2005": {
+            "codes": [
+              "READ::1M52"
+            ]
+          },
+          "gt2006": {
+            "codes": [
+              "READ::F25"
+            ]
+          },
+          "gt2007": {
+            "codes": [
+              "READ::E2002"
+            ]
+          },
+          "gt2008": {
+            "codes": [
+              "READ::dnj1",
+              "READ::dnj2",
+              "READ::dnj3",
+              "READ::dnjy",
+              "READ::dnjz"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

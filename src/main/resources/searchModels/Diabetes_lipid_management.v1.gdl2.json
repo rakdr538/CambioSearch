@@ -1,0 +1,1582 @@
+{
+  "gdl_version": "2.0",
+  "id": "Diabetes_lipid_management.v1",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "name": "John Smith",
+      "organisation": "Cambio Healthcare Systems",
+      "email": "john.smith@cambio.se"
+    },
+    "details": {
+      "en": {
+        "id": "en",
+        "purpose": "Sample fhir-based cds-rules for demonstration purpose",
+        "keywords": [
+          "Diabetes"
+        ]
+      },
+      "sv": {
+        "id": "sv",
+        "purpose": "FHIR regler",
+        "keywords": [
+          "Diabetes"
+        ]
+      }
+    },
+    "other_details": {
+      "references": "NICE guideline -Cardiovascular disease: risk assessment and reduction, including lipid modification, Chapter 1.3.20-1.3.51,"
+    },
+    "references": [
+      {
+        "id": "1",
+        "label": "NICE guideline. Cardiovascular disease: risk assessment and reduction, including lipid modification, Chapter 1.3.20-1.3.51 [49, pp. 20–26].",
+        "url": "https://www.nice.org.uk/guidance/CG181"
+      }
+    ]
+  },
+  "definition": {
+    "data_bindings": {
+      "gt0010": {
+        "id": "gt0010",
+        "model_id": "org.hl7.fhir.dstu3.model.MedicationStatement",
+        "type": "INPUT",
+        "elements": {
+          "gt0011": {
+            "id": "gt0011",
+            "path": "/medicationCodeableConcept/coding[0]"
+          },
+          "gt0058": {
+            "id": "gt0058",
+            "path": "/effectiveDateTime"
+          },
+          "gt0958": {
+            "id": "gt0958",
+            "path": "/effectivePeriod/start"
+          }
+        },
+        "predicates": [
+          "/medicationCodeableConcept/coding[0] is_a local::gt0012|Statin|"
+        ]
+      },
+      "gt0002": {
+        "id": "gt0002",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "type": "INPUT",
+        "elements": {
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0004|Type-2 diabetes|"
+        ]
+      },
+      "gt0008": {
+        "id": "gt0008",
+        "model_id": "org.hl7.fhir.dstu3.model.Observation",
+        "type": "INPUT",
+        "elements": {
+          "gt0009": {
+            "id": "gt0009",
+            "path": "/valueQuantity"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0037|QRISK2|"
+        ]
+      },
+      "gt0019": {
+        "id": "gt0019",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "type": "INPUT",
+        "elements": {
+          "gt0020": {
+            "id": "gt0020",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0021|CVD|"
+        ]
+      },
+      "gt0015": {
+        "id": "gt0015",
+        "model_id": "org.hl7.fhir.dstu3.model.Observation",
+        "type": "INPUT",
+        "elements": {
+          "gt0016": {
+            "id": "gt0016",
+            "path": "/valueQuantity"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0036|LDL Cholesterol|",
+          "max(/effectiveDateTime)"
+        ]
+      },
+      "gt0005": {
+        "id": "gt0005",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "type": "INPUT",
+        "elements": {
+          "gt0006": {
+            "id": "gt0006",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0007|CKD|"
+        ]
+      },
+      "gt0017": {
+        "id": "gt0017",
+        "model_id": "org.hl7.fhir.dstu3.model.Observation",
+        "type": "INPUT",
+        "elements": {
+          "gt0018": {
+            "id": "gt0018",
+            "path": "/valueQuantity"
+          }
+        },
+        "predicates": [
+          "/effectiveDateTime/value/value<=($currentDateTime-3,mo)",
+          "/code/coding[0] is_a local::gt0036|LDL Cholesterol|"
+        ]
+      },
+      "gt0039": {
+        "id": "gt0039",
+        "model_id": "org.hl7.fhir.dstu3.model.Observation",
+        "type": "INPUT",
+        "elements": {
+          "gt0040": {
+            "id": "gt0040",
+            "path": "/valueQuantity"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0038|Aspartate transaminase (AST)|",
+          "max(/effectiveDateTime)"
+        ]
+      },
+      "gt0042": {
+        "id": "gt0042",
+        "model_id": "org.hl7.fhir.dstu3.model.Observation",
+        "type": "INPUT",
+        "elements": {
+          "gt0043": {
+            "id": "gt0043",
+            "path": "/valueQuantity"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0041|Alanine transaminase (ALT)|",
+          "max(/effectiveDateTime)"
+        ]
+      },
+      "gt0049": {
+        "id": "gt0049",
+        "model_id": "org.hl7.fhir.dstu3.model.Observation",
+        "type": "INPUT",
+        "elements": {
+          "gt0050": {
+            "id": "gt0050",
+            "path": "/valueQuantity"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0051|eGFR|",
+          "max(/effectiveDateTime)"
+        ]
+      },
+      "gt0053": {
+        "id": "gt0053",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "type": "INPUT",
+        "elements": {
+          "gt0054": {
+            "id": "gt0054",
+            "path": "/code/coding[0]"
+          },
+          "gt0057": {
+            "id": "gt0057",
+            "path": "/onsetDateTime"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt0055|Muscle pain|"
+        ]
+      }
+    },
+    "templates": {
+      "gt1000": {
+        "id": "gt1000",
+        "model_id": "org.hl7.fhir.dstu3.model.MedicationRequest",
+        "object": {
+          "resourceType": "MedicationRequest",
+          "status": "draft",
+          "intent": "proposal",
+          "authoredOn": "{$gt2006}",
+          "medicationCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://www.whocc.no/atc",
+                "code": "C10AA05",
+                "display": "atorvastatin"
+              }
+            ]
+          },
+          "dosageInstruction": [
+            {
+              "text": "{$gt2000}mg daily",
+              "doseQuantity": {
+                "value": "{$gt2000}",
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        }
+      },
+      "gt1001": {
+        "id": "gt1000",
+        "model_id": "org.hl7.fhir.dstu3.model.MedicationRequest",
+        "object": {
+          "resourceType": "MedicationRequest",
+          "status": "draft",
+          "intent": "proposal",
+          "authoredOn": "{$gt2006}",
+          "medicationCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://www.whocc.no/atc",
+                "code": "{$gt2000}",
+                "display": "{$gt2001}"
+              }
+            ]
+          }
+        }
+      },
+      "gt1002": {
+        "id": "gt1002",
+        "model_id": "org.hl7.fhir.dstu3.model.Goal",
+        "object": {
+          "resourceType": "Goal",
+          "status": "proposed",
+          "category": [
+            {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/goal-category",
+                  "code": "safety"
+                }
+              ]
+            }
+          ],
+          "description": {
+            "text": "Decrease Non-HDL Cholesterol by %40. Evaluate progress with 3 monthly measurements."
+          },
+          "startDate": "{$gt2005}",
+          "target": {
+            "measure": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "13457-7",
+                  "display": "Cholesterol in LDL"
+                }
+              ]
+            },
+            "detailRange": {
+              "high": {
+                "value": "{$gt2001}",
+                "unit": "mg/dL",
+                "system": "http://unitsofmeasure.org/",
+                "code": "mg/dL"
+              }
+            },
+            "dueDate": "{$gt2006}"
+          }
+        }
+      },
+      "gt1003": {
+        "id": "gt1003",
+        "model_id": "org.hl7.fhir.dstu3.model.Appointment",
+        "object": {
+          "resourceType": "Appointment",
+          "id": "appointment-offer",
+          "status": "proposed",
+          "description": "{$gt2002}",
+          "appointmentType": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/v2/0276",
+                "code": "FOLLOWUP",
+                "display": "FOLLOWUP"
+              }
+            ]
+          },
+          "start": "{$gt2003}"
+        }
+      },
+      "gt1004": {
+        "id": "gt1004",
+        "model_id": "org.hl7.fhir.dstu3.model.ProcedureRequest",
+        "object": {
+          "resourceType": "ProcedureRequest",
+          "status": "draft",
+          "intent": "proposal",
+          "extension": [
+            {
+              "url": "http://www.c3-cloud.eu/fhir/StructureDefinition/description",
+              "valueString": "{$gt4205}"
+            }
+          ],
+          "category": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/care-plan-activity-category",
+                "code": "observation",
+                "display": "Observation"
+              }
+            ]
+          },
+          "code": {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "{$gt4203}",
+                "display": "{$gt4204}"
+              }
+            ]
+          },
+          "occurrenceTiming": {
+            "repeat": {
+              "frequency": 1,
+              "period": 3,
+              "periodUnit": "mo",
+              "boundsPeriod": {
+                "start": "{$gt4202}"
+              }
+            }
+          }
+        }
+      },
+      "gt1005": {
+        "id": "gt1005",
+        "model_id": "org.hl7.fhir.dstu3.model.ProcedureRequest",
+        "object": {
+          "resourceType": "ProcedureRequest",
+          "status": "draft",
+          "intent": "proposal",
+          "extension": [
+            {
+              "url": "http://www.c3-cloud.eu/fhir/StructureDefinition/description",
+              "valueString": "Measure creatine kinase"
+            }
+          ],
+          "category": [
+            {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/care-plan-activity-category",
+                  "code": "observation",
+                  "display": "Observation"
+                }
+              ]
+            }
+          ],
+          "code": {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "9643-8",
+                "display": "Creatine Kinase"
+              }
+            ]
+          },
+          "performer": [
+            {
+              "display": "PATIENT"
+            }
+          ]
+        }
+      },
+      "gt1006": {
+        "id": "gt1006",
+        "model_id": "org.hl7.fhir.dstu3.model.ProcedureRequest",
+        "object": {
+          "resourceType": "ProcedureRequest",
+          "status": "draft",
+          "intent": "proposal",
+          "extension": [
+            {
+              "url": "http://www.c3-cloud.eu/fhir/StructureDefinition/description",
+              "valueString": "Measure and evaluate QRISK2"
+            }
+          ],
+          "category": [
+            {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/care-plan-activity-category",
+                  "code": "observation",
+                  "display": "Observation"
+                }
+              ]
+            }
+          ],
+          "code": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "718087004",
+                "display": "QRISK2"
+              }
+            ]
+          }
+        }
+      },
+      "gt1007": {
+        "id": "gt1007",
+        "model_id": "org.hl7.fhir.dstu3.model.ReferralRequest",
+        "object": {
+          "resourceType": "ReferralRequest",
+          "status": "draft",
+          "intent": "proposal",
+          "specialty": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "11911009",
+                "display": "Nephrologist"
+              }
+            ],
+            "text": "Nephrologist"
+          },
+          "authoredOn": "{$gt2005}",
+          "description": "Referral to a Renal Specialist to agree on an increased statin dose for lipid lowering, Proposed dose 80mg"
+        }
+      }
+    },
+    "rules": {
+      "gt0025": {
+        "id": "gt0025",
+        "priority": 4,
+        "when": [
+          "$gt0011|Statin treatment|==null",
+          "$gt0003|Type-2 diabetes|!=null",
+          "$gt0006|CKD diagnosis|==null",
+          "$gt0020|CVD diagnosis|!=null"
+        ],
+        "cards": [
+          {
+            "summary": "Atorvastatin Recommendation-80mg, lipid and liver transaminases tests",
+            "detail": "Offer atorvastatin 80 mg. Appointment for control visit after 3 months. Suggest lipid and liver transaminases tests.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Offer atorvastatin 80 mg. Appointment for control visit after 3 months. Suggestion lipid and liver transaminases tests.",
+                "uuid": "f55737e9-c19d-4eb7-b749-b3f22e1ebcf0",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Atorvastatin Recommendation-80mg.",
+                    "resource_template": {
+                      "template_id": "gt1000",
+                      "assignments": [
+                        "$gt2000=80",
+                        "$gt2006=$currentDate.string"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Appointment",
+                    "resource_template": {
+                      "template_id": "gt1003",
+                      "assignments": [
+                        "$gt2002='Follow up to check the results of Statin Treatment'",
+                        "$gt2003=($currentDate+3,mo)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Lipid Panel Test Observation",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='24331-1'",
+                        "$gt4204='Lipid 1996 panel - Serum or Plasma'",
+                        "$gt4205='Have lipid Panel test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Aspartate transaminase (AST) test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1920-8'",
+                        "$gt4204='Aspartate transaminase (AST)'",
+                        "$gt4205='Have aspartate transaminase (AST) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Alanine transaminase (ALT) Test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1742-6'",
+                        "$gt4204='Alanine transaminase (ALT)'",
+                        "$gt4205='Have alanine transaminase (ALT) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0026": {
+        "id": "gt0026",
+        "priority": 3,
+        "when": [
+          "$gt0011|Statin treatment|==null",
+          "$gt0003|Type-2 diabetes|!=null",
+          "$gt0006|CKD diagnosis|==null",
+          "$gt0020|CVD diagnosis|==null",
+          "$gt0009|QRISK2 score|!=null",
+          "$gt0009|QRISK2 score|>=10,%"
+        ],
+        "cards": [
+          {
+            "summary": "Atorvastatin Recommendation-20mg, lipid and liver transaminases tests",
+            "detail": "Offer atorvastatin 20 mg. Add a goal to lower the non-HDL Cholestretol by %40. Appointment for control visit after 3 months. Suggest lipid and liver transaminases tests.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Offer atorvastatin 20 mg. Add a goal to lower the non-HDL Cholestretol by %40. Appointment for control visit after 3 months. Suggestion lipid and liver transaminases tests.",
+                "uuid": "fe171c1f-0667-43af-a5cd-e9e7b3af5c8e",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Offer Starting Statin Treatment",
+                    "resource_template": {
+                      "template_id": "gt1000",
+                      "assignments": [
+                        "$gt2000=20",
+                        "$gt2006=$currentDate.string"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Goal",
+                    "resource_template": {
+                      "template_id": "gt1002",
+                      "assignments": [
+                        "$gt2001=($gt0016|Latest LDL Cholesterol|.magnitude*0.6)",
+                        "$gt2005=$currentDate.string",
+                        "$gt2006=($currentDate+3,mo)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Appointment",
+                    "resource_template": {
+                      "template_id": "gt1003",
+                      "assignments": [
+                        "$gt2002='Follow up to check the results of Statin Treatment'",
+                        "$gt2003=($currentDate+3,mo)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Lipid Panel Test Observation",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='24331-1'",
+                        "$gt4204='Lipid 1996 panel - Serum or Plasma'",
+                        "$gt4205='Have lipid Panel test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Aspartate transaminase (AST) test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1920-8'",
+                        "$gt4204='Aspartate transaminase (AST)'",
+                        "$gt4205='Have aspartate transaminase (AST) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Alanine transaminase (ALT) Test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1742-6'",
+                        "$gt4204='Alanine transaminase (ALT)'",
+                        "$gt4205='Have alanine transaminase (ALT) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0034": {
+        "id": "gt0034",
+        "priority": 2,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "(($gt0040|Aspartate transaminase (AST)|!=null)&&($gt0043|Alanine transaminase (ALT)|!=null))",
+          "(($gt0040|Aspartate transaminase (AST)|<750,U/L)&&($gt0043|Alanine transaminase (ALT)|<750,U/L))",
+          "$gt0054|Muscle pain condition|==null",
+          "(($gt0016|Latest LDL Cholesterol|!=null)&&($gt0018|Previous LDL Cholesterol|!=null))",
+          "$gt0016|Latest LDL Cholesterol|.magnitude>=($gt0018|Previous LDL Cholesterol|.magnitude*0.6)",
+          "$gt0050|eGFR value|>=30,mL/min/{1.73_m2}"
+        ],
+        "cards": [
+          {
+            "summary": "Recommendation for increasing the dose of Statin treatment (atorvastatin 80mg) and suggest lipit test and 3 months control visit.",
+            "detail": "Increase the dose of atorvastatin to 80 mg. Add a goal to lower the non-HDL Cholestretol by %40. See also NICE guidelines for cardiovascular disease (CG181) and suggest lipit test and 3 months control visit.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "uuid": "2c96cc9f-896b-44dc-8440-66df3cbeb5b7",
+                "label": "Atorvastatin Recommendation-80mg and a goal to lower the non-HDL Cholestretol by %40.",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Atorvastatin Recommendation-80mg",
+                    "resource_template": {
+                      "template_id": "gt1000",
+                      "assignments": [
+                        "$gt2000=80",
+                        "$gt2006=$currentDate.string"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Set appointment to discuss adherence",
+                    "resource_template": {
+                      "template_id": "gt1003",
+                      "assignments": [
+                        "$gt2002='Appointment to discuss adherence to statin treatment, diet & lifestyle measures'",
+                        "$gt2003=($currentDateTime+5,d)",
+                        "$gt2004=($currentDateTime+5,d)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Goal",
+                    "resource_template": {
+                      "template_id": "gt1002",
+                      "assignments": [
+                        "$gt2001=($gt0016|Latest LDL Cholesterol|.magnitude*0.6)",
+                        "$gt2005=$currentDate.string",
+                        "$gt2006=($currentDate+3,mo)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Lipid Panel Test Observation",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='24331-1'",
+                        "$gt4204='Lipid 1996 panel - Serum or Plasma'",
+                        "$gt4205='Have lipid Panel test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Appointment",
+                    "resource_template": {
+                      "template_id": "gt1003",
+                      "assignments": [
+                        "$gt2002='Follow up to check the results of Statin Treatment'",
+                        "$gt2003=($currentDate+3,mo)"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0035": {
+        "id": "gt0035",
+        "priority": 1,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "(($gt0040|Aspartate transaminase (AST)|!=null)&&($gt0043|Alanine transaminase (ALT)|!=null))",
+          "(($gt0040|Aspartate transaminase (AST)|<750,U/L)&&($gt0043|Alanine transaminase (ALT)|<750,U/L))",
+          "$gt0054|Muscle pain condition|==null",
+          "(($gt0016|Latest LDL Cholesterol|!=null)&&($gt0018|Previous LDL Cholesterol|!=null))",
+          "$gt0016|Latest LDL Cholesterol|.magnitude<($gt0018|Previous LDL Cholesterol|.magnitude*0.6)"
+        ],
+        "cards": [
+          {
+            "summary": "Continue treatment and offer annual follow-up and lipid test suggestion.",
+            "detail": "Continue treatment and offer annual follow-up and lipid test suggestion.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Annual follow-up",
+                "uuid": "d4787b06-9e26-48f8-91ee-6184b6011fcd",
+                "actions": [
+                  {
+                    "type": "create",
+                    "resource_template": {
+                      "template_id": "gt1003",
+                      "assignments": [
+                        "$gt2002='Annual follow up to check the results of Statin Treatment'",
+                        "$gt2003=($currentDateTime+1,a)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Lipid Panel Test Observation",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='24331-1'",
+                        "$gt4204='Lipid 1996 panel - Serum or Plasma'",
+                        "$gt4205='Have lipid Panel test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0044": {
+        "id": "gt0044",
+        "priority": 5,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "(($gt0040|Aspartate transaminase (AST)|!=null)&&($gt0043|Alanine transaminase (ALT)|!=null))",
+          "(($gt0040|Aspartate transaminase (AST)|>=750,U/L)||($gt0043|Alanine transaminase (ALT)|>=750,U/L))"
+        ],
+        "cards": [
+          {
+            "summary": "Stop statin treatment.",
+            "detail": "Stop statin treatment.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Stop statin treatment.",
+                "uuid": "85ea34a1-aa11-432f-b098-1168d18730c8",
+                "actions": [
+                  {
+                    "type": "delete",
+                    "description": "Stop statin",
+                    "resource_template": {
+                      "template_id": "gt1001",
+                      "assignments": [
+                        "$gt2000='C10AA05'",
+                        "$gt2001='atorvastatin'",
+                        "$gt2006=$currentDateTime.string"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0045": {
+        "id": "gt0045",
+        "priority": 6,
+        "when": [
+          "$gt0011|Statin treatment|==null",
+          "$gt0003|Type-2 diabetes|!=null",
+          "$gt0006|CKD diagnosis|==null",
+          "$gt0020|CVD diagnosis|==null",
+          "$gt0009|QRISK2 score|==null"
+        ],
+        "cards": [
+          {
+            "summary": "Measure and evaluate QRISK2",
+            "detail": "Measure and evaluate QRISK2",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Measure and evaluate QRISK2",
+                "uuid": "cd762e47-17cf-4c31-a2a0-2d9970e33ea9",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "QRISK2 Observation",
+                    "resource_template": {
+                      "template_id": "gt1006",
+                      "assignments": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0046": {
+        "id": "gt0046",
+        "priority": 7,
+        "when": [
+          "$gt0011|Statin treatment|==null",
+          "$gt0003|Type-2 diabetes|!=null",
+          "$gt0006|CKD diagnosis|==null",
+          "$gt0020|CVD diagnosis|==null",
+          "$gt0009|QRISK2 score|!=null",
+          "$gt0009|QRISK2 score|<10,%"
+        ],
+        "cards": [
+          {
+            "summary": "No indication for lipid lowering primary intervention.",
+            "detail": "No indication for lipid lowering primary intervention.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            }
+          }
+        ]
+      },
+      "gt0047": {
+        "id": "gt0047",
+        "priority": 8,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "($gt0040|Aspartate transaminase (AST)|==null)||($gt0043|Alanine transaminase (ALT)|==null)"
+        ],
+        "cards": [
+          {
+            "summary": "Order liver transaminases test",
+            "detail": "Order liver transaminases test (AST and ALT)",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Order liver transaminases test",
+                "uuid": "6e0cbf49-8e51-4450-be05-c76f7bd8fae9",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Aspartate transaminase (AST) test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1920-8'",
+                        "$gt4204='Aspartate transaminase (AST)'",
+                        "$gt4205='Have aspartate transaminase (AST) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Alanine transaminase (ALT) Test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1742-6'",
+                        "$gt4204='Alanine transaminase (ALT)'",
+                        "$gt4205='Have alanine transaminase (ALT) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0048": {
+        "id": "gt0048",
+        "priority": 9,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "(($gt0040|Aspartate transaminase (AST)|!=null)&&($gt0043|Alanine transaminase (ALT)|!=null))",
+          "(($gt0040|Aspartate transaminase (AST)|<750,U/L)&&($gt0043|Alanine transaminase (ALT)|<750,U/L))",
+          "$gt0054|Muscle pain condition|==null",
+          "($gt0016|Latest LDL Cholesterol|==null)||($gt0018|Previous LDL Cholesterol|==null)"
+        ],
+        "cards": [
+          {
+            "summary": "Order lipid lab test.",
+            "detail": "Order lipid lab test.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Order lipid lab test.",
+                "uuid": "bce7d70f-b1ec-429b-98bf-b3c8ebe50155",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Lipid Panel Test Observation",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='24331-1'",
+                        "$gt4204='Lipid 1996 panel - Serum or Plasma'",
+                        "$gt4205='Have lipid Panel test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0052": {
+        "id": "gt0052",
+        "priority": 10,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "(($gt0040|Aspartate transaminase (AST)|!=null)&&($gt0043|Alanine transaminase (ALT)|!=null))",
+          "(($gt0040|Aspartate transaminase (AST)|<750,U/L)&&($gt0043|Alanine transaminase (ALT)|<750,U/L))",
+          "$gt0054|Muscle pain condition|==null",
+          "(($gt0016|Latest LDL Cholesterol|!=null)&&($gt0018|Previous LDL Cholesterol|!=null))",
+          "$gt0016|Latest LDL Cholesterol|.magnitude>=($gt0018|Previous LDL Cholesterol|.magnitude*0.6)",
+          "$gt0050|eGFR value|<30,mL/min/{1.73_m2}"
+        ],
+        "cards": [
+          {
+            "summary": "Referral to a Renal Specialist to agree on an increased statin dose suggest lipit test and 3 months control visit.",
+            "detail": "Referral to a Renal Specialist to agree on an increased statin dose suggest lipit test. Add a goal to lower the non-HDL Cholestretol by %40 and 3 months control visit.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Referral to a Renal Specialist to agree on an increased statin dose and a goal to lower the non-HDL Cholestretol by %40",
+                "uuid": "e1cc4df1-1e57-4b3b-b322-caaf91f16681",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Referral to a Renal Specialist to agree on an increased statin dose",
+                    "resource_template": {
+                      "template_id": "gt1007",
+                      "assignments": [
+                        "$gt2005=$currentDate.string"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Goal",
+                    "resource_template": {
+                      "template_id": "gt1002",
+                      "assignments": [
+                        "$gt2001=($gt0016|Latest LDL Cholesterol|.magnitude*0.6)",
+                        "$gt2005=$currentDate.string",
+                        "$gt2006=($currentDate+3,mo)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Lipid Panel Test Observation",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='24331-1'",
+                        "$gt4204='Lipid 1996 panel - Serum or Plasma'",
+                        "$gt4205='Have lipid Panel test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Appointment",
+                    "resource_template": {
+                      "template_id": "gt1003",
+                      "assignments": [
+                        "$gt2002='Follow up to check the results of Statin Treatment'",
+                        "$gt2003=($currentDate+3,mo)"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0056": {
+        "id": "gt0056",
+        "priority": 12,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "(($gt0040|Aspartate transaminase (AST)|!=null)&&($gt0043|Alanine transaminase (ALT)|!=null))",
+          "(($gt0040|Aspartate transaminase (AST)|<750,U/L)&&($gt0043|Alanine transaminase (ALT)|<750,U/L))",
+          "$gt0054|Muscle pain condition|!=null",
+          "$gt0058!=null",
+          "$gt0057|Muscle pain onset date|<=($gt0058|Statin medication effective datetime|+3,mo)"
+        ],
+        "cards": [
+          {
+            "summary": "Measure Creatine Kinase (CK)",
+            "detail": "Suspect statin side effect and Measure Creatine Kinase (CK)",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Creatine Kinase Observation",
+                "uuid": "1c43162a-1b10-4038-8c4f-0a85937b4970",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Creatine Kinase Observation",
+                    "resource_template": {
+                      "template_id": "gt1005",
+                      "assignments": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0956": {
+        "id": "gt0956",
+        "priority": 13,
+        "when": [
+          "$gt0011|Statin treatment|!=null",
+          "(($gt0040|Aspartate transaminase (AST)|!=null)&&($gt0043|Alanine transaminase (ALT)|!=null))",
+          "(($gt0040|Aspartate transaminase (AST)|<750,U/L)&&($gt0043|Alanine transaminase (ALT)|<750,U/L))",
+          "$gt0054|Muscle pain condition|!=null",
+          "$gt0958!=null",
+          "$gt0057|Muscle pain onset date|<=($gt0958|Statin medication effective period start|+3,mo)"
+        ],
+        "cards": [
+          {
+            "summary": "Measure Creatine Kinase (CK)",
+            "detail": "Suspect statin side effect and Measure Creatine Kinase (CK)",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Creatine Kinase Observation",
+                "uuid": "1c43162a-1b10-4038-8c4f-0a85937b4970",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Creatine Kinase Observation",
+                    "resource_template": {
+                      "template_id": "gt1005",
+                      "assignments": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gt0126": {
+        "id": "gt0126",
+        "priority": 14,
+        "when": [
+          "$gt0011|Statin treatment|==null",
+          "$gt0006|CKD diagnosis|!=null"
+        ],
+        "cards": [
+          {
+            "summary": "Atorvastatin Recommendation-20mg, lipid and liver transaminases tests",
+            "detail": "Offer atorvastatin 20 mg. Add a goal to lower the non-HDL Cholestretol by %40. Appointment for control visit after 3 months. Suggest lipid and liver transaminases tests.",
+            "indicator": "info",
+            "source": {
+              "label_reference": "$ref[1].label",
+              "url_reference": "$ref[1].url"
+            },
+            "suggestions": [
+              {
+                "label": "Offer atorvastatin 20 mg. Add a goal to lower the non-HDL Cholestretol by %40. Appointment for control visit after 3 months. Suggestion lipid and liver transaminases tests.",
+                "uuid": "390ebd19-c8c1-4b34-94f0-b00748b98fc7",
+                "actions": [
+                  {
+                    "type": "create",
+                    "description": "Offer Starting Statin Treatment",
+                    "resource_template": {
+                      "template_id": "gt1000",
+                      "assignments": [
+                        "$gt2000=20",
+                        "$gt2006=$currentDate.string"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Goal",
+                    "resource_template": {
+                      "template_id": "gt1002",
+                      "assignments": [
+                        "$gt2001=($gt0016|Latest LDL Cholesterol|.magnitude*0.6)",
+                        "$gt2005=$currentDate.string",
+                        "$gt2006=($currentDate+3,mo)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Statin Treatment Followup Appointment",
+                    "resource_template": {
+                      "template_id": "gt1003",
+                      "assignments": [
+                        "$gt2002='Follow up to check the results of Statin Treatment'",
+                        "$gt2003=($currentDate+3,mo)"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Lipid Panel Test Observation",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='24331-1'",
+                        "$gt4204='Lipid 1996 panel - Serum or Plasma'",
+                        "$gt4205='Have lipid Panel test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Aspartate transaminase (AST) test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1920-8'",
+                        "$gt4204='Aspartate transaminase (AST)'",
+                        "$gt4205='Have aspartate transaminase (AST) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "create",
+                    "description": "Alanine transaminase (ALT) Test",
+                    "resource_template": {
+                      "template_id": "gt1004",
+                      "assignments": [
+                        "$gt4202=$currentDateTime",
+                        "$gt4203='1742-6'",
+                        "$gt4204='Alanine transaminase (ALT)'",
+                        "$gt4205='Have alanine transaminase (ALT) test before 3 monthly lipid control visit'"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0007": {
+            "id": "gt0007",
+            "text": "CKD",
+            "description": "Chronic kidney disease"
+          },
+          "gt0018": {
+            "id": "gt0018",
+            "text": "Previous LDL Cholesterol",
+            "description": "LDL-Cholesterol level in the sample."
+          },
+          "gt0029": {
+            "id": "gt0029",
+            "text": "Goal name",
+            "description": "The name of the desired health outcome."
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "QRISK2 score",
+            "description": "QRISK2 score"
+          },
+          "gt0003|Type-2 diabetes diagnosis|": {
+            "id": "gt0003",
+            "text": "Type-2 diabetes diagnosis",
+            "description": "The index diagnosis"
+          },
+          "gt0014": {
+            "id": "gt0014",
+            "text": "Estimated Glomerular Filtration Rate",
+            "description": "Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m²)."
+          },
+          "gt0025": {
+            "id": "gt0025",
+            "text": "Start statin treatment in patient with CVD"
+          },
+          "gt0004": {
+            "id": "gt0004",
+            "text": "Type-2 diabetes"
+          },
+          "gt0026": {
+            "id": "gt0026",
+            "text": "Start statin treatment in patient without CVD"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "Latest LDL Cholesterol",
+            "description": "LDL-Cholesterol level in the sample."
+          },
+          "gt0006": {
+            "id": "gt0006",
+            "text": "CKD diagnosis",
+            "description": "The index diagnosis"
+          },
+          "gt0028": {
+            "id": "gt0028"
+          },
+          "gt0021": {
+            "id": "gt0021",
+            "text": "CVD",
+            "description": "Chronic vascular disease"
+          },
+          "gt0032": {
+            "id": "gt0032",
+            "text": "Request description",
+            "description": "Narrative description of the service requested."
+          },
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Statin treatment",
+            "description": "The generic name of the drug which is an alternative name to the name of medication"
+          },
+          "gt0033": {
+            "id": "gt0033",
+            "text": "Request QRISK"
+          },
+          "gt0001": {
+            "id": "gt0001",
+            "text": "Diabetes lipids lowering in type 2 diabetes without CKD",
+            "description": "Managing lipids and cardiovascular risk in Type 2 Diabetes patients"
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "Statin"
+          },
+          "gt0023": {
+            "id": "gt0023",
+            "text": "Requested medication generic name",
+            "description": "The generic name of the drug which is an alternative name to the name of medication"
+          },
+          "gt0034": {
+            "id": "gt0034",
+            "text": "Increase statin dose"
+          },
+          "gt0024": {
+            "id": "gt0024",
+            "text": "Requested medication dose",
+            "description": "*"
+          },
+          "gt0035": {
+            "id": "gt0035",
+            "text": "Continue treatment"
+          },
+          "gt0020": {
+            "id": "gt0020",
+            "text": "CVD diagnosis",
+            "description": "The index diagnosis"
+          },
+          "gt0036": {
+            "id": "gt0036",
+            "text": "LDL Cholesterol",
+            "description": "LDL Cholesterol lab test result."
+          },
+          "gt0037": {
+            "id": "gt0037",
+            "text": "QRISK2",
+            "description": "QRISK2 cardiovascular disease 10 year risk score."
+          },
+          "gt0038": {
+            "id": "gt0038",
+            "text": "Aspartate transaminase (AST)",
+            "description": "Aspartate transaminase (AST)."
+          },
+          "gt0039": {
+            "id": "gt0039",
+            "text": "Aspartate transaminase (AST) lab test",
+            "description": "Aspartate transaminase (AST) lab test."
+          },
+          "gt0040": {
+            "id": "gt0040",
+            "text": "Aspartate transaminase (AST) test value",
+            "description": "Aspartate transaminase (AST) test value."
+          },
+          "gt0041": {
+            "id": "gt0041",
+            "text": "Alanine transaminase (ALT)",
+            "description": "Alanine transaminase (ALT)."
+          },
+          "gt0042": {
+            "id": "gt0042",
+            "text": "Alanine transaminase (ALT) lab test",
+            "description": "Alanine transaminase (ALT) lab test."
+          },
+          "gt0043": {
+            "id": "gt0043",
+            "text": "Alanine transaminase (ALT) test value",
+            "description": "Alanine transaminase (ALT) test value."
+          },
+          "gt0044": {
+            "id": "gt0044",
+            "text": "Stop statin treatment",
+            "description": "Stop statin treatment rule."
+          },
+          "gt0045": {
+            "id": "gt0045",
+            "text": "Measure and evaluate QRISK2",
+            "description": "Measure and evaluate QRISK2 rule."
+          },
+          "gt0046": {
+            "id": "gt0046",
+            "text": "No indication for lipid lowering primary intervention",
+            "description": "No indication for lipid lowering primary intervention rule."
+          },
+          "gt0047": {
+            "id": "gt0047",
+            "text": "Order liver transaminases test",
+            "description": "Order liver transaminases test rule."
+          },
+          "gt0048": {
+            "id": "gt0048",
+            "text": "Order lipid lab test",
+            "description": "Order lipid lab test rule."
+          },
+          "gt0049": {
+            "id": "gt0049",
+            "text": "eGFR lab test",
+            "description": "eGFR lab test."
+          },
+          "gt0050": {
+            "id": "gt0050",
+            "text": "eGFR value",
+            "description": "eGFR value"
+          },
+          "gt0051": {
+            "id": "gt0051",
+            "text": "eGFR",
+            "description": "eGFR"
+          },
+          "gt0052": {
+            "id": "gt0052",
+            "text": "Agree an increased dose with a renal specialist",
+            "description": "Agree an increased dose with a renal specialist rule."
+          },
+          "gt0053": {
+            "id": "gt0053",
+            "text": "Muscle pain condition",
+            "description": "Muscle pain condition."
+          },
+          "gt0054": {
+            "id": "gt0054",
+            "text": "Muscle pain condition",
+            "description": "Muscle pain condition."
+          },
+          "gt0055": {
+            "id": "gt0055",
+            "text": "Muscle pain",
+            "description": "Muscle pain."
+          },
+          "gt0056": {
+            "id": "gt0056",
+            "text": "Suspect statin's side effect and measure CK",
+            "description": "Suspect statin's side effect and measure CK rule."
+          },
+          "gt0057": {
+            "id": "gt0057",
+            "text": "Muscle pain onset date",
+            "description": "Muscle pain onset date."
+          },
+          "gt0058": {
+            "id": "gt0058",
+            "text": "Statin medication effective datetime",
+            "description": "Statin medication effective datetime."
+          }
+        }
+      }
+    },
+    "term_bindings": {
+      "ATC": {
+        "id": "ATC",
+        "bindings": {
+          "gt0012": {
+            "codes": [
+              "ATC::C10AA05"
+            ]
+          }
+        }
+      },
+      "SNOMED-CT": {
+        "id": "SNOMED-CT",
+        "bindings": {
+          "gt0037": {
+            "codes": [
+              "SNOMED-CT::718087004"
+            ]
+          },
+          "gt0055": {
+            "codes": [
+              "SNOMED-CT::68962001"
+            ]
+          }
+        }
+      },
+      "LOINC": {
+        "id": "LOINC",
+        "bindings": {
+          "gt0036": {
+            "codes": [
+              "LOINC::13457-7"
+            ]
+          },
+          "gt0038": {
+            "codes": [
+              "LOINC::1920-8"
+            ]
+          },
+          "gt0041": {
+            "codes": [
+              "LOINC::1742-6"
+            ]
+          },
+          "gt0051": {
+            "codes": [
+              "LOINC::33914-3"
+            ]
+          }
+        }
+      },
+      "ICD-10": {
+        "id": "ICD-10",
+        "bindings": {
+          "gt0021": {
+            "codes": [
+              "ICD-10::I48.9",
+              "ICD-10::I24.9",
+              "ICD-10::I48.2",
+              "ICD-10::I48.1",
+              "ICD-10::I48.4",
+              "ICD-10::I48.3",
+              "ICD-10::I21.2",
+              "ICD-10::I21.3",
+              "ICD-10::I48.0",
+              "ICD-10::I21.4",
+              "ICD-10::I20.0",
+              "ICD-10::I21.0",
+              "ICD-10::I21.1"
+            ]
+          },
+          "gt0007": {
+            "codes": [
+              "ICD-10::N18.9",
+              "ICD-10::N18.0",
+              "ICD-10::N18.3",
+              "ICD-10::N18.4",
+              "ICD-10::N18.1",
+              "ICD-10::N18.2",
+              "ICD-10::N18.5"
+            ]
+          },
+          "gt0004": {
+            "codes": [
+              "ICD-10::E11"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

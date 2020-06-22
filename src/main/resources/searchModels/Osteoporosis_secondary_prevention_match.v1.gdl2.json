@@ -1,0 +1,346 @@
+{
+  "id": "Osteoporosis_secondary_prevention_match.v1",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2018-05-17",
+      "name": "Cambio"
+    },
+    "lifecycle_state": "Initial",
+    "details": {
+      "en": {
+        "id": "en",
+        "keywords": [
+          "Medicines review",
+          "Osteoporosis",
+          "Alendronate"
+        ]
+      },
+      "sv": {
+        "id": "sv",
+        "keywords": [
+          "Medicinsk undersökning",
+          "Osteoporos",
+          "Alendronat"
+        ]
+      }
+    },
+    "other_details": {
+      "references": "1. Scottish Government Polypharmacy Model of Care Polypharmacy Working Group. Polypharmacy Guidance (fourth edition). April 2018. Scottish Government."
+    }
+  },
+  "definition": {
+    "pre_conditions": [
+      "$gt1107|vertebral, non-vertebral or hip fractures|!=null",
+      "$gt1010|gender|=='female'",
+      "$gt1007|postmenopausal state|!=null",
+      "$gt0003|alendronate medication|!=null"
+    ],
+    "data_bindings": {
+      "gt1008": {
+        "id": "gt1008",
+        "model_id": "org.hl7.fhir.dstu3.model.Patient",
+        "template_id": "FHIR-STU3-Patient.basic_demographic.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1009": {
+            "id": "gt1009",
+            "path": "/birthDate"
+          },
+          "gt1010": {
+            "id": "gt1010",
+            "path": "/gender"
+          }
+        }
+      },
+      "gt1006": {
+        "id": "gt1006",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "template_id": "FHIR-STU3-Condition.problem_diagnosis.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1007": {
+            "id": "gt1007",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt3004|Postmenopausal state|"
+        ]
+      },
+      "gt1106": {
+        "id": "gt1106",
+        "model_id": "org.hl7.fhir.dstu3.model.Condition",
+        "template_id": "FHIR-STU3-Condition.problem_diagnosis.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt1107": {
+            "id": "gt1107",
+            "path": "/code/coding[0]"
+          }
+        },
+        "predicates": [
+          "/code/coding[0] is_a local::gt3005|vertebral, non-vertebral or hip fractures|"
+        ]
+      },
+      "gt0002": {
+        "id": "gt0002",
+        "model_id": "org.hl7.fhir.dstu3.model.MedicationStatement",
+        "template_id": "FHIR-STU3-MedicationStatement.generic.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/medicationCodeableConcept/coding[0]"
+          },
+          "gt0004": {
+            "id": "gt0004",
+            "path": "/effectiveDateTime"
+          },
+          "gt0030": {
+            "id": "gt0030",
+            "path": "/dosage[0]/doseQuantity"
+          }
+        },
+        "predicates": [
+          "/medicationCodeableConcept/coding[0] is_a local::gt0008|Alendronate|"
+        ]
+      }
+    },
+    "templates": {
+      "gt2022": {
+        "id": "gt2022",
+        "model_id": "java.util.LinkedHashMap",
+        "object": {
+          "medicine": "{$gt2000}",
+          "dose": {
+            "unit": "{$gt2002}",
+            "magnitude": "{$gt2001}",
+            "precision": 0
+          },
+          "startDate": "{$gt2004}",
+          "duration": {
+            "unit": "wk",
+            "magnitude": "{$gt2003}",
+            "precision": 0
+          },
+          "numberNeededToTreatInformation": [
+            {
+              "medicine": "Alendronate 10 mg tablets",
+              "comparator": "Placebo",
+              "studyPopulation": "Postmenopausal women who had experienced previous vertebral compression fractures",
+              "outcome": "Vertebral secondary prevention",
+              "durationOfTrial": "60 months (5 years)",
+              "numberNeededToTreat": "{$gt2005}",
+              "annualisedNumberNeededToTreat": "{$gt2006}",
+              "numberNeededToTreatVisual": "{$gt2011}",
+              "comments": "Age range 42-85 but >62 for secondary prevention. These NNTs apply to the first 5 years of treatment only. All patients received calcium and vitamin D."
+            },
+            {
+              "medicine": "Alendronate 10 mg tablets",
+              "comparator": "Placebo",
+              "studyPopulation": "Postmenopausal women who had experienced previous vertebral compression fractures",
+              "outcome": "Non-vertebral secondary prevention",
+              "durationOfTrial": "60 months (5 years)",
+              "numberNeededToTreat": "{$gt2007}",
+              "annualisedNumberNeededToTreat": "{$gt2008}",
+              "numberNeededToTreatVisual": "{$gt2012}",
+              "comments": "Age range 42-85 but >62 for secondary prevention. These NNTs apply to the first 5 years of treatment only. All patients received calcium and vitamin D."
+            },
+            {
+              "medicine": "Alendronate 10 mg tablets",
+              "comparator": "Placebo",
+              "studyPopulation": "Postmenopausal women who had experienced previous vertebral compression fractures",
+              "outcome": "Hip secondary prevention",
+              "durationOfTrial": "60 months (5 years)",
+              "numberNeededToTreat": "{$gt2009}",
+              "annualisedNumberNeededToTreat": "{$gt2010}",
+              "numberNeededToTreatVisual": "{$gt2013}",
+              "comments": "Age range 42-85 but >62 for secondary prevention. These NNTs apply to the first 5 years of treatment only. All patients received calcium and vitamin D."
+            }
+          ],
+          "sharedDecisionAid": "https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid?viewasapp=1"
+        }
+      }
+    },
+    "rules": {
+      "gt5000": {
+        "id": "gt5000",
+        "priority": 1000,
+        "when": [
+        ],
+        "then": [
+          "$gt6000|calculated age|=(($currentDateTime-$gt1009|birthDate|)/1,a)"
+        ]
+      },
+      "gt5001": {
+        "id": "gt5001",
+        "priority": 100,
+        "when": [
+          "$gt6000|calculated age|>=65",
+          "$gt6000|calculated age|<70"
+        ],
+        "then": [
+          "$gt2005|Vertebral secondary prevention.numberNeededToTreat|='16'",
+          "$gt2006|Vertebral secondary prevention.annualisedNumberNeededToTreat|='80'",
+          "$gt2007|Non-vertebral secondary prevention.numberNeededToTreat|='52'",
+          "$gt2008|Non-vertebral secondary prevention.annualisedNumberNeededToTreat|='260'",
+          "$gt2009|Hip secondary prevention.numberNeededToTreat|='21'",
+          "$gt2010|Hip secondary prevention.annualisedNumberNeededToTreat|='105'",
+          "$gt2011|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2012|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2013|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'"
+        ]
+      },
+      "gt5002": {
+        "id": "gt5002",
+        "priority": 99,
+        "when": [
+          "$gt6000|calculated age|>=70",
+          "$gt6000|calculated age|<75"
+        ],
+        "then": [
+          "$gt2005|Vertebral secondary prevention.numberNeededToTreat|='13'",
+          "$gt2006|Vertebral secondary prevention.annualisedNumberNeededToTreat|='65'",
+          "$gt2007|Non-vertebral secondary prevention.numberNeededToTreat|='39'",
+          "$gt2008|Non-vertebral secondary prevention.annualisedNumberNeededToTreat|='195'",
+          "$gt2009|Hip secondary prevention.numberNeededToTreat|='86'",
+          "$gt2010|Hip secondary prevention.annualisedNumberNeededToTreat|='430'",
+          "$gt2011|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2012|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2013|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'"
+        ]
+      },
+      "gt5003": {
+        "id": "gt5003",
+        "priority": 98,
+        "when": [
+          "$gt6000|calculated age|>=75",
+          "$gt6000|calculated age|<80"
+        ],
+        "then": [
+          "$gt2005|Vertebral secondary prevention.numberNeededToTreat|='9'",
+          "$gt2006|Vertebral secondary prevention.annualisedNumberNeededToTreat|='45'",
+          "$gt2007|Non-vertebral secondary prevention.numberNeededToTreat|='36'",
+          "$gt2008|Non-vertebral secondary prevention.annualisedNumberNeededToTreat|='180'",
+          "$gt2009|Hip secondary prevention.numberNeededToTreat|='36'",
+          "$gt2010|Hip secondary prevention.annualisedNumberNeededToTreat|='180'",
+          "$gt2011|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2012|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2013|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'"
+        ]
+      },
+      "gt5004": {
+        "id": "gt5004",
+        "priority": 97,
+        "when": [
+          "$gt6000|calculated age|>=80",
+          "$gt6000|calculated age|<85"
+        ],
+        "then": [
+          "$gt2005|Vertebral secondary prevention.numberNeededToTreat|='12'",
+          "$gt2006|Vertebral secondary prevention.annualisedNumberNeededToTreat|='60'",
+          "$gt2007|Non-vertebral secondary prevention.numberNeededToTreat|='27'",
+          "$gt2008|Non-vertebral secondary prevention.annualisedNumberNeededToTreat|='135'",
+          "$gt2009|Hip secondary prevention.numberNeededToTreat|='21'",
+          "$gt2010|Hip secondary prevention.annualisedNumberNeededToTreat|='105'",
+          "$gt2011|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2012|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2013|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'"
+        ]
+      },
+      "gt5005": {
+        "id": "gt5005",
+        "priority": 96,
+        "when": [
+          "$gt6000|calculated age|>=85",
+          "$gt6000|calculated age|<90"
+        ],
+        "then": [
+          "$gt2005|Vertebral secondary prevention.numberNeededToTreat|='11'",
+          "$gt2006|Vertebral secondary prevention.annualisedNumberNeededToTreat|='55'",
+          "$gt2007|Non-vertebral secondary prevention.numberNeededToTreat|='24'",
+          "$gt2008|Non-vertebral secondary prevention.annualisedNumberNeededToTreat|='120'",
+          "$gt2009|Hip secondary prevention.numberNeededToTreat|='9'",
+          "$gt2010|Hip secondary prevention.annualisedNumberNeededToTreat|='45'",
+          "$gt2011|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2012|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2013|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'"
+        ]
+      },
+      "gt5006": {
+        "id": "gt5006",
+        "priority": 95,
+        "when": [
+          "$gt6000|calculated age|>=90"
+        ],
+        "then": [
+          "$gt2005|Vertebral secondary prevention.numberNeededToTreat|='8'",
+          "$gt2006|Vertebral secondary prevention.annualisedNumberNeededToTreat|='40'",
+          "$gt2007|Non-vertebral secondary prevention.numberNeededToTreat|='12'",
+          "$gt2008|Non-vertebral secondary prevention.annualisedNumberNeededToTreat|='60'",
+          "$gt2009|Hip secondary prevention.numberNeededToTreat|='8'",
+          "$gt2010|Hip secondary prevention.annualisedNumberNeededToTreat|='40'",
+          "$gt2011|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2012|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'",
+          "$gt2013|numberNeededToTreatVisual|='https://polypharmacycms-staging.azurewebsites.net/polypharmacy-guidance-medicines-review/shared-decision-making/alendronic-acid/SMART/#accordionNumber-2'"
+        ]
+      },
+      "gt0022": {
+        "id": "gt0022",
+        "priority": 1,
+        "when": [
+          "$gt6000|calculated age|>=65"
+        ],
+        "then": [
+          "use_template($gt2022($gt2000=$gt0003.value;$gt2001=$gt0030.magnitude;$gt2002=$gt0030.unit;$gt2003=(floor((($currentDateTime-$gt0004)/7,d)));$gt2004=$gt0004.string))"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "Match medicines",
+            "description": "FR10, perform matching of patient medications\nThe CDS Application shall compare any medications retrieved from the patient’s medical record against the list of medications available in the Drug Efficacy Table of the Polypharmacy Guide. The comparison shall detect any matching combination of medication name, dosage, ideal body weight, fasting blood glucose, diagnosis and age, between the patient’s medical record and the data from the Drug Efficacy Table."
+          }
+        }
+      }
+    },
+    "term_bindings": {
+      "READ": {
+        "id": "READ",
+        "bindings": {
+          "gt3004": {
+            "codes": [
+              "READ::151K"
+            ]
+          },
+          "gt3005": {
+            "codes": [
+              "READ::S1000",
+              "READ::S106",
+              "READ::S10A",
+              "READ::S150",
+              "READ::S28",
+              "READ::S37"
+            ]
+          },
+          "gt0008": {
+            "codes": [
+              "READ::fo41"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
